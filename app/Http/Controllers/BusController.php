@@ -17,7 +17,7 @@ class BusController extends Controller
     {
         $validated = $request->validate([
             'placa' => 'required|string|max:20',
-            'numero' => 'required|string|max:20',
+            'numero' => 'required|integer',
             'empresa' => 'required|string|max:100',
         ]);
 
@@ -31,7 +31,7 @@ class BusController extends Controller
 
         $validated = $request->validate([
             'placa' => 'required|string|max:20',
-            'numero' => 'required|string|max:20',
+            'numero' => 'required|integer',
             'empresa' => 'required|string|max:100',
         ]);
 
