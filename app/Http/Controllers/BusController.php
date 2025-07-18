@@ -7,11 +7,30 @@ use App\Models\Bus;
 
 class BusController extends Controller
 {
-    public function index()
-    {
-        $buses = Bus::all();
-        return response()->json($buses);
+    public function index(Request $request)
+{
+    $query = Bus::query();
+
+    if ($request->has('empresa') && $request->empresa !== '') {
+        $query->where('empresa', 'LIKE', '%' . $request->empresa . '%');
     }
+
+    if ($request->has('placa') && $request->placa !== '') {
+        $query->where('placa', 'LIKE', '%' . $request->placa . '%');
+    }
+
+    if ($request->has('ordemNumero')) {
+        if ($request->ordemNumero === 'asc') {
+            $query->orderBy('numero', 'asc');
+        } elseif ($request->ordemNumero === 'desc') {
+            $query->orderBy('numero', 'desc');
+        }
+    }
+
+    $buses = $query->get();
+    return response()->json($buses);
+}
+
 
     public function create(Request $request)
     {
