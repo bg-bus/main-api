@@ -3,6 +3,7 @@
 use App\Http\Controllers\BusRouteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BusController;
 
 use App\Http\Middleware\CheckUserPermission;
 
@@ -30,5 +31,10 @@ Route::middleware(['auth:sanctum', CheckUserPermission::class])->group(function 
     Route::post('/routes/store', [BusRouteController::class, 'store']);
     Route::delete('/routes/{id}', [BusRouteController::class, 'destroy']);
         
+    Route::get('/bus', [BusController::class, 'index']);
+    Route::post('/bus/create', [BusController::class, 'create']);
+    Route::put('/bus/update/{id}', [BusController::class, 'update']);
+    Route::delete('/bus/delete/{id}', [BusController::class, 'delete']);
+    
     Route::apiResource('bus-stops', App\Http\Controllers\BusStopController::class);
 });
